@@ -1,43 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<widget xmlns   = "http://www.w3.org/ns/widgets"
-    xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "mx.com.e-360.play"
-    versionCode = "10"
-    version     = "1.0.0" >
-
-<!-- versionCode is optional and Android only -->
-
-  <name>E360PLAY</name>
-
-  <description>
-      An example for phonegap build docs.
-  </description>
-
-  <author href="http://www.espacio360.com.mx" email="salvador.martinez@espacio360.com.mx">
-     SALVADOR MARTINEZ GAYTAN
-  </author>
-
-  <access origin="*"></access>
-
-
-<preference name="Fullscreen" value="true" />
-
-
-<!-- iOS only preferences -->
-<preference name="EnableViewportScale" value="true"/>
-
-<preference name="MediaPlaybackRequiresUserAction" value="false"/>
-<preference name="AllowInlineMediaPlayback" value="true"/>
-
-
-<!-- Android only preferences -->
-
-
-<!-- Windows only preferences -->
-
-
-<!-- OS X only preferences -->
-
-
-
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="mx.com.e-360.play" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>E360PLAY</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="Fullscreen" value="true" />
+    <!-- iOS only preferences -->
+    <preference name="EnableViewportScale" value="true" />
+    <preference name="MediaPlaybackRequiresUserAction" value="false" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
 </widget>
