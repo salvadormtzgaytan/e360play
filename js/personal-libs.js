@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
         $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
             $(".layer-load").hide();
             var session = JSON.parse(data);
-            if (session.code > 0) {
+            if (session.code > 0 && window.location.href.indexOf("index.html") < 0 ) {
                 window.location.assign("index.html");
             }
             $("#debug").html( JSON.stringify (CFG));
@@ -44,6 +44,7 @@ jQuery(document).ready(function($) {
                         $("#errorcode p").html(resultado.data);
                         $("#errorcode").show();
                     } else if (resultado.code == 0) {
+                        console.log(JSON.stringify(resultado) );
                         window.location.assign("play.html");
                     }
                 })

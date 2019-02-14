@@ -1,12 +1,14 @@
 var CFG;
+var rootserver = "https://play.e-360.com.mx/";
 jQuery(document).ready(function($) {
     $(".layer-load").show();
-    $.post('config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
-        CFG = jQuery.parseJSON(data);
+    $.post(rootserver +'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
+        CFG = JSON.parse(data);
         $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
             $(".layer-load").hide();
-            var session = jQuery.parseJSON(data);
-            if (session.code > 0) {
+            var session = JSON.parse(data);
+            console.log(JSON.stringify(session));
+             if (session.code > 0 && window.location.href.indexOf("index.html") < 0 ) {
                 window.location.assign("index.html");
             } else {
                 loadPlayList();
