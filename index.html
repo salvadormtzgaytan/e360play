@@ -90,9 +90,10 @@
 <script type="text/javascript" src="js/personal-libs.js"></script>
 <script type="text/javascript">
 var CFG;
+var rootserver = "https://play.e-360.com.mx/";
 jQuery(document).ready(function($) {
     $(".layer-load").show();
-    $.post('config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
+    $.post(rootserver + 'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
         CFG = jQuery.parseJSON(data);
         $.post( CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
             $(".layer-load").hide();
