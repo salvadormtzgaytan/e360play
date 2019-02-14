@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
             $(".layer-load").hide();
             var session = jQuery.parseJSON(data);
             if (session.code > 0) {
-                window.location.assign(session.data);
+                window.location.assign("index.html");
             } else {
                 loadPlayList();
             }
@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
     $("#logOutBtn").click(function(event) {
         event.preventDefault();
         $.post(CFG.base_url + "/" + 'phplibs/AjaxLogOutManager.php', { param1: 'value1' }, function(data, textStatus, xhr) {
-            window.location.assign(CFG.wwwroot);
+            window.location.assign("index.html");
         });
     });
 

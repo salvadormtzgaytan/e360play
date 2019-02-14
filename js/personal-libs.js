@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
             $(".layer-load").hide();
             var session = JSON.parse(data);
             if (session.code > 0) {
-                window.location.assign(session.data);
+                window.location.assign("index.html");
             }
             $("#debug").html( JSON.stringify (CFG));
         });
@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
                         $("#errorcode p").html(resultado.data);
                         $("#errorcode").show();
                     } else if (resultado.code == 0) {
-                        window.location.assign(resultado.data);
+                        window.location.assign("play.html");
                     }
                 })
                 .fail(function(response) {
