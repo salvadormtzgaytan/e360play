@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>:: ::</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wireframe.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <style type="text/css">
+        body{background-image:url(img/login/login.jpg);background-repeat:no-repeat;background-position:center center;background-size:cover;-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-o-transition:all .5s ease-out;transition:all .5s ease-out;overflow:hidden;}
+        .error{display:block;width:100%;color:red;}
+        #logo{margin-top:-100px;}
+        @media (max-width:767px){
+            #logo{margin-top:0px;}
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: none;" id="thebacks">
+        <img src="img/login/login.jpg">
+        <img src="img/login/pexels-photo-534263.jpeg">
+        <img src="img/login/pexels-photo-545334.jpeg">
+        <img src="img/login/technology-music-sound-things.jpg">
+    </div>
+    <div class="layer-load">
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <div class="container h-100">
+        <div class="row h-100">
+            <div class="col-12 text-right">
+                <img src="img/login/logo-bayer.png" class="img-fluid d-block float-right py-3" style="max-width: 70px;">
+            </div>
+            <div class="col-12 col-md-6 justify-content-center align-items-center my-5 my-sm-0">
+                <form method="post" name="form" id="form" action="phplibs/AjaxAuthenticationManager.php">
+                    <div class="card border-primary" style="border-radius: 50px;">
+                        <div class="card-title my-3"><img src="img/login/logo-conoce.png" id="logo" class="d-block img-fluid mx-auto" style=""></div>
+                        <div class="card-body">
+                            
+                            <div class="card-text text-left my-2" style="font-size: .8em; display: none;" id="errorcode">
+                                <p class="text-warning">
+                                </p>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-primary text-white"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input name="username" type="text" class="form-control" placeholder="Usuario" required>
+                            </div>
+                            <div class="input-group">
+                                <div class="input-group-prepend ">
+                                    <span class="input-group-text bg-primary text-white"><i class="fas fa-key"></i></span>
+                                </div>
+                                <input name="password" class="form-control" type="password" placeholder="Contraseña" required>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-white" style="border-radius: 50px;">
+                            <div class="card-text text-center">
+                                <input type="submit" name="Submit" value="Ingresar" class="btn btn-primary text-white" />
+                            </div>
+                            <div class="card-text text-left my-2" style="font-size: .8em;">
+                                <p class="text-muted">Las 'Cookies' deben estar habilitadas en su navegador <i class="fas fa-info-circle text-primary"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="bower_components/es6-promise-polyfill/promise.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/popper.js/dist/popper.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-validation/dist/localization/messages_es.min.js"></script>
+<script type="text/javascript" src="bower_components/waitForImages/dist/jquery.waitforimages.min.js"></script>
+<script type="text/javascript" src="bower_components/base-64/base64.js"></script>
+<script type="text/javascript" src="js/personal-libs.js"></script>
+<script type="text/javascript">
+var CFG;
+jQuery(document).ready(function($) {
+    $(".layer-load").show();
+    $.post('config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
+        CFG = jQuery.parseJSON(data);
+        $.post( CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
+            $(".layer-load").hide();
+            var session = jQuery.parseJSON(data);
+            if (session.code > 0) {
+                window.location.assign(session.data);
+            }
+        });
+    });
+
+    $("#form").validate({
+        submitHandler: function(form) {
+            //form.submit();
+            var action = CFG.base_url + "/" + $(form).attr('action');
+            var method = $(form).attr('method');
+            $(".layer-load").show();
+            $.ajax({
+                    url: action,
+                    type: method,
+                    data: $(form).serialize()
+                })
+                .done(function(response) {
+                    var resultado = jQuery.parseJSON(response);
+                    if (resultado.code == 1) {
+                        $("#errorcode p").html(resultado.data);
+                        $("#errorcode").show();
+                    } else if (resultado.code == 0) {
+                        window.location.assign(resultado.data);
+                    }
+                })
+                .fail(function(response) {
+                    alert("Error al conectar con el servidor");
+                })
+                .always(function(response) {
+                    $(".layer-load").hide();
+                });
+
+        }
+    });
+    if ($.getQuery('e')) { $("#errorcode p").html(base64.decode($.getQuery('e'))).show(); }
+    $(".container").waitForImages({
+        finished: function() {
+            $(".layer-load").hide();
+            setInterval(changeBG, 10000);
+        },
+        each: function(loaded, count, success) {
+            var total = Math.floor((loaded * 100) / count);
+
+        },
+        waitForAll: true
+    });
+    var indexback = 0;
+    function changeBG() {
+        indexback++;
+        var maxbg = $("#thebacks").find('img').length;
+        if (indexback > maxbg - 1) { indexback = 0; }
+        var nextUrl = 'url(' + $("#thebacks").find('img').eq(indexback).attr('src') + ')';
+        $("body").css('background-image', nextUrl);
+    }
+
+});
+</script>
+
+</html>

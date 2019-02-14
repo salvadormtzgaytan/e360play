@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>:: ::</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="stylesheet" type="text/css" href="bower_components/components-font-awesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/wireframe.css">
+    <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/mediaelement/build/mediaelementplayer.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+    <style type="text/css">
+        .medialist-wall,
+        .dataTables_info,
+        .dataTables_length{display:none;}
+        .page-link,
+        .page-item.disabled .page-link{background-color:rgba(0,0,0,0.075);}
+        .table td{border:none;}
+        .playmedia{cursor:pointer;}
+        .odd{background-color:rgba(255,255,255,.075);}
+        .even{}
+    </style>
+</head>
+
+<body>
+    <div class="layer-load">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+    <div style="display: none;" id="thebacks">
+        <img src="img/login/login.jpg">
+        <img src="img/login/pexels-photo-534263.jpeg">
+        <img src="img/login/pexels-photo-545334.jpeg">
+        <img src="img/login/technology-music-sound-things.jpg">
+    </div>
+    <!-- Navigation -->
+    <div class="fixed-top">
+<!--    <header class="topbar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <ul class="social-network">
+                            <li><a class="waves-effect waves-dark" href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#"><i class="fa fa-pinterest"></i></a></li>
+                            <li><a class="waves-effect waves-dark" href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header> -->
+        <nav class="navbar navbar-expand-lg navbar-dark mx-background-top-linear">
+            <div class="container">
+                <a class="navbar-brand" href="play.html" style="text-transform: uppercase;">e360Play</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="play.html">PlayList
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Soporte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="logOutBtn">Salir</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navigation -->
+    <section class="w-100 pt-4" style="background-color: rgba(27, 30, 33, 0.82); min-height: 100%;">
+    <div class="container" id="playlist">
+        <div class="row">
+            <div class="col-12 text-white">
+                <h2 id="seccionname">PlayList</h2>
+            </div>
+        </div>
+        <div class="row playlist-wall">
+            
+          
+
+        </div>
+        <div class="row medialist-wall">
+            <div class="col-12 col-lg-8" id="mediaobject">
+                
+            </div>
+            <div class="col-12 col-lg-4" id="medialist">
+              <div class="card" style="background: rgba(0, 0, 0, 0.075);color: #FFF;">
+                <div class="card-body">
+                <table id="tablelist" class="table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th class="playlistname">Nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="playlistname">Nombre</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+          </div>
+        </div>
+            
+        </div>
+    </div>
+</section>
+    <footer>
+    </footer>
+</body>
+<script type="text/javascript" src="bower_components/es6-promise-polyfill/promise.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="bower_components/popper.js/dist/popper.min.js"></script>
+<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-validation/dist/jquery.validate.min.js"></script>
+<script type="text/javascript" src="bower_components/jquery-validation/dist/localization/messages_es.min.js"></script>
+<script type="text/javascript" src="bower_components/waitForImages/dist/jquery.waitforimages.min.js"></script>
+<script type="text/javascript" src="bower_components/base-64/base64.js"></script>
+<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="bower_components/mediaelement/build/mediaelement-and-player.min.js"></script>
+<script type="text/javascript" src="bower_components/mediaelement/build/lang/es.js"></script>
+<script type="text/javascript" src="js/personal-libs.js"></script>
+<script type="text/javascript">
+var CFG;
+jQuery(document).ready(function($) {
+    $(".layer-load").show();
+    $.post('config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
+        CFG = jQuery.parseJSON(data);
+        $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
+            $(".layer-load").hide();
+            var session = jQuery.parseJSON(data);
+            if (session.code > 0) {
+                window.location.assign(session.data);
+            } else {
+                loadPlayList();
+            }
+        });
+    });
+    $("#logOutBtn").click(function(event) {
+        event.preventDefault();
+        $.post(CFG.base_url + "/" + 'phplibs/AjaxLogOutManager.php', { param1: 'value1' }, function(data, textStatus, xhr) {
+            window.location.assign(CFG.wwwroot);
+        });
+    });
+
+    function loadPlayList() {
+        $(".layer-load").show();
+        $.post(CFG.base_url + '/phplibs/PlayListManager.php', { playlist: new Date().getMilliseconds() }, function(mediadata, textStatus, xhr) {
+            /*optional stuff to do after success */
+            var playlist = jQuery.parseJSON(mediadata);
+            //console.dir(playlist);
+            if (playlist.playListLength > 0) {
+                $.get('media-template.html', function(templatedata) {
+                    $(".playlist-wall").html("");
+                    var dummieMedia = $.parseHTML(templatedata);
+                    $.each(playlist.data, function(index, media) {
+                        $(dummieMedia).find('.card-e360play').attr('id', 'media' + index);
+                        $(dummieMedia).find('.card-e360play').attr("data-playlistid", media.id);
+                        $(dummieMedia).find(".poster-playlist").attr('src', CFG.base_url + "/" + media.posterplaylist);
+                        if (media.resumen == null) {
+                            $(dummieMedia).find(".media-resumen").hide();
+                        } else {
+                            $(dummieMedia).find(".media-resumen").html(media.resumen).show();
+                        }
+                        $(".playlist-wall").append($(dummieMedia).html());
+                    });
+                    $(".layer-load").hide();
+                });
+            } else {
+                $(".layer-load").hide();
+                $(".playlist-wall").html('<div class="col-md-12 col-lg-4 my-2"><h3>' + playlist.data + '</h3></div>');
+            }
+        });
+    }
+
+    var playlistMedia;
+    $('body').on('click', 'div.card-e360play', function() {
+        $(".layer-load").show();
+        var playlistid = $(this).data("playlistid");
+        $.post(CFG.base_url + '/phplibs/PlayListManager.php', { playlistid: playlistid }, function(mediadata, textStatus, xhr) {
+            playlistMedia = jQuery.parseJSON(mediadata);
+            $("#tablelist").find('tbody').html("");
+
+            if( playlistMedia.playListLength > 0) {
+                $.each(playlistMedia.data, function(index, media) {
+                    $("#tablelist").find('tbody').append('<tr><td class="playmedia" data-indice="' + index +
+                        '" data-mediaType="' +
+                        media.type +
+                        '" data-mediaid="' +
+                        media.mediaid + '">' +
+                        media.media_nombre +
+                        '</td></tr>');
+                    $(".playlistname").html(media.nombre);
+                    $("#seccionname").html(media.nombre);
+                });
+            }
+            $('#tablelist').DataTable({
+                "searching": false,
+                "ordering": false,
+                select: true
+            });
+            $(".medialist-wall").css('display', 'flex');
+            $(".playlist-wall").hide();
+            $(".layer-load").hide();
+        });
+    });
+
+    $('body').on('click', '.playmedia', function() {
+        var media = playlistMedia.data[parseInt($(this).data("indice"))];
+        switch (media.type) {
+            case 'video':
+                renderVideo(media);
+                break;
+            case 'audio':
+                renderAudio(media);
+                break;
+        }
+    });
+
+
+    function renderVideo(video) {
+        $(".layer-load").show();
+        $.get(CFG.base_url + '/video.template.html', function(templatedata) {
+            var dummieMedia = $.parseHTML(templatedata);
+            $("#mediaobject").html("");
+            $(dummieMedia).find('source').attr('src', CFG.base_url + '/' + video.url);
+            $("#mediaobject").html($(dummieMedia).html());
+            //var videoObj = $("#resource-e360").mediaelementplayer();
+            $("#seccionname").html(video.media_nombre);
+            $(".layer-load").hide();
+        });
+    }
+
+
+
+    setInterval(changeBG, 10000);
+    var indexback = 0;
+
+    function changeBG() {
+        indexback++;
+        var maxbg = $("#thebacks").find('img').length;
+        if (indexback > maxbg - 1) { indexback = 0; }
+        var nextUrl = 'url(' + $("#thebacks").find('img').eq(indexback).attr('src') + ')';
+        $("body").css('background-image', nextUrl);
+    }
+
+    $("window").resize(function(event) {
+        $("body").css('padding-top', $(".fixed-top").outerHeight() + "px");
+    });
+    $("body").css('padding-top', $(".fixed-top").outerHeight() + "px");
+
+});
+</script>
+
+
+</html>
