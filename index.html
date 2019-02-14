@@ -76,6 +76,9 @@
                     </div>
                 </form>
             </div>
+            <div class="col-12" id="debug">
+                
+            </div>
         </div>
     </div>
 </body>
@@ -101,6 +104,7 @@ jQuery(document).ready(function($) {
             if (session.code > 0) {
                 window.location.assign(session.data);
             }
+            $("#debug").html(  jQuery.parseJSON(CFG);  );
         });
     });
 
