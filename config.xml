@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.phonegap.example"
+    id          = "mx.com.e-360.play"
     versionCode = "10"
     version     = "1.0.0" >
 
@@ -17,7 +17,27 @@
      SALVADOR MARTINEZ GAYTAN
   </author>
 
+  <access origin="*"></access>
 
-  <access origin="https://e-360.com.mx/" subdomains="true" />
+
+<preference name="Fullscreen" value="true" />
+
+
+<!-- iOS only preferences -->
+<preference name="EnableViewportScale" value="true"/>
+
+<preference name="MediaPlaybackRequiresUserAction" value="false"/>
+<preference name="AllowInlineMediaPlayback" value="true"/>
+
+
+<!-- Android only preferences -->
+
+
+<!-- Windows only preferences -->
+
+
+<!-- OS X only preferences -->
+
+
 
 </widget>
