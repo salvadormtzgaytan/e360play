@@ -1,3 +1,5 @@
+var CFG;
+var rootserver = "https://play.e-360.com.mx/";
 jQuery(document).ready(function($) {
     $.getQuery = function(query) {
         query = query.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -11,21 +13,17 @@ jQuery(document).ready(function($) {
             return false;
         }
     };
-});
 
-var CFG;
-var rootserver = "https://play.e-360.com.mx/";
-jQuery(document).ready(function($) {
     $(".layer-load").show();
     $.post(rootserver + 'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
         CFG = jQuery.parseJSON(data);
         $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
             $(".layer-load").hide();
-            var session = jQuery.parseJSON(data);
+            var session = JSON.parse(data);
             if (session.code > 0) {
                 window.location.assign(session.data);
             }
-            $("#debug").html(jQuery.parseJSON(CFG));
+            $("#debug").html( JSON.stringify (CFG));
         });
     });
 
