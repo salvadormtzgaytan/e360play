@@ -1,6 +1,6 @@
 var CFG;
-//var rootserver = "https://play.e-360.com.mx/";
-var rootserver = "http://localhost:8080/proyectos/e-360/aplicaciones/360play/";
+var rootserver = "https://play.e-360.com.mx/";
+//var rootserver = "http://localhost:8080/proyectos/e-360/aplicaciones/360play/";
 jQuery(document).ready(function($) {
     $(".layer-load").show();
     $.post(rootserver +'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
