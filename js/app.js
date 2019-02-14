@@ -1,30 +1,29 @@
 var CFG;
-var rootserver = "https://play.e-360.com.mx/";
+//var rootserver = "https://play.e-360.com.mx/";
+var rootserver = "http://localhost:8080/proyectos/e-360/aplicaciones/360play/";
 jQuery(document).ready(function($) {
     $(".layer-load").show();
     $.post(rootserver +'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
         CFG = JSON.parse(data);
-        $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
-            $(".layer-load").hide();
-            var session = JSON.parse(data);
-            console.log(JSON.stringify(session));
-             if (session.code > 0 && window.location.href.indexOf("index.html") < 0 ) {
-                window.location.assign("index.html");
-            } else {
-                loadPlayList();
-            }
-        });
+        var userSession = sessionStorage.getItem("usersession");
+        if( userSession == null  ){
+            window.location.assign("index.html");
+        }else{
+            loadPlayList();
+        }
     });
     $("#logOutBtn").click(function(event) {
         event.preventDefault();
         $.post(CFG.base_url + "/" + 'phplibs/AjaxLogOutManager.php', { param1: 'value1' }, function(data, textStatus, xhr) {
+            sessionStorage.clear();
             window.location.assign("index.html");
         });
     });
 
     function loadPlayList() {
         $(".layer-load").show();
-        $.post(CFG.base_url + '/phplibs/PlayListManager.php', { playlist: new Date().getMilliseconds() }, function(mediadata, textStatus, xhr) {
+        var userSession = JSON.parse(sessionStorage.getItem("usersession"));
+        $.post(CFG.base_url + '/phplibs/AjaxPlayListManager.php', { userid: userSession.id }, function(mediadata, textStatus, xhr) {
             /*optional stuff to do after success */
             var playlist = jQuery.parseJSON(mediadata);
             //console.dir(playlist);
@@ -56,7 +55,8 @@ jQuery(document).ready(function($) {
     $('body').on('click', 'div.card-e360play', function() {
         $(".layer-load").show();
         var playlistid = $(this).data("playlistid");
-        $.post(CFG.base_url + '/phplibs/PlayListManager.php', { playlistid: playlistid }, function(mediadata, textStatus, xhr) {
+        var userSession = JSON.parse(sessionStorage.getItem("usersession"));
+        $.post(CFG.base_url + '/phplibs/AjaxPlayListManager.php', { playlistid: playlistid, userid: userSession.id }, function(mediadata, textStatus, xhr) {
             playlistMedia = jQuery.parseJSON(mediadata);
             $("#tablelist").find('tbody').html("");
 

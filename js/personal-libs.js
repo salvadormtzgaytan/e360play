@@ -1,5 +1,6 @@
 var CFG;
-var rootserver = "https://play.e-360.com.mx/";
+//var rootserver = "https://play.e-360.com.mx/";
+var rootserver = "http://localhost:8080/proyectos/e-360/aplicaciones/360play/";
 jQuery(document).ready(function($) {
     $.getQuery = function(query) {
         query = query.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -17,14 +18,12 @@ jQuery(document).ready(function($) {
     $(".layer-load").show();
     $.post(rootserver + 'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
         CFG = jQuery.parseJSON(data);
-        $.post(CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
-            $(".layer-load").hide();
-            var session = JSON.parse(data);
-            if (session.code > 0 && window.location.href.indexOf("index.html") < 0 ) {
-                window.location.assign("index.html");
-            }
-            $("#debug").html( JSON.stringify (CFG));
-        });
+        $(".layer-load").hide();
+        var userSession = sessionStorage.getItem("usersession");
+        if( userSession != null  ){
+            window.location.assign("play.html");
+        }
+        $("#debug").html( JSON.stringify (CFG));
     });
 
     $("#form").validate({
@@ -45,6 +44,7 @@ jQuery(document).ready(function($) {
                         $("#errorcode").show();
                     } else if (resultado.code == 0) {
                         console.log(JSON.stringify(resultado) );
+                        sessionStorage.setItem("usersession",  JSON.stringify( resultado.user ) );
                         window.location.assign("play.html");
                     }
                 })
