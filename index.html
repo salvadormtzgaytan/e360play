@@ -4,6 +4,29 @@
 <head>
     <title>:: ::</title>
     <meta charset="utf-8">
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">
+
+<!-- Allow everything but only from the same origin and foo.com -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' e-360.com.mx">
+
+<!-- This policy allows everything (eg CSS, AJAX, object, frame, media, etc) except that 
+    * CSS only from the same origin and inline styles,
+    * scripts only from the same origin and inline styles, and eval()
+-->
+<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+
+<!-- Allows XHRs only over HTTPS on the same domain. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https:">
+
+<!-- Allow iframe to https://cordova.apache.org/ -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' https://cordova.apache.org">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=0">
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -91,74 +114,6 @@
 <script type="text/javascript" src="bower_components/waitForImages/dist/jquery.waitforimages.min.js"></script>
 <script type="text/javascript" src="bower_components/base-64/base64.js"></script>
 <script type="text/javascript" src="js/personal-libs.js"></script>
-<script type="text/javascript">
-var CFG;
-var rootserver = "https://play.e-360.com.mx/";
-jQuery(document).ready(function($) {
-    $(".layer-load").show();
-    $.post(rootserver + 'config.php', { jscfg: '1' }, function(data, textStatus, xhr) {
-        CFG = jQuery.parseJSON(data);
-        $.post( CFG.base_url + '/phplibs/AjaxSessionManager.php', { url: window.location.href }, function(data, textStatus, xhr) {
-            $(".layer-load").hide();
-            var session = jQuery.parseJSON(data);
-            if (session.code > 0) {
-                window.location.assign(session.data);
-            }
-            $("#debug").html(  jQuery.parseJSON(CFG);  );
-        });
-    });
-
-    $("#form").validate({
-        submitHandler: function(form) {
-            //form.submit();
-            var action = CFG.base_url + "/" + $(form).attr('action');
-            var method = $(form).attr('method');
-            $(".layer-load").show();
-            $.ajax({
-                    url: action,
-                    type: method,
-                    data: $(form).serialize()
-                })
-                .done(function(response) {
-                    var resultado = jQuery.parseJSON(response);
-                    if (resultado.code == 1) {
-                        $("#errorcode p").html(resultado.data);
-                        $("#errorcode").show();
-                    } else if (resultado.code == 0) {
-                        window.location.assign(resultado.data);
-                    }
-                })
-                .fail(function(response) {
-                    alert("Error al conectar con el servidor");
-                })
-                .always(function(response) {
-                    $(".layer-load").hide();
-                });
-
-        }
-    });
-    if ($.getQuery('e')) { $("#errorcode p").html(base64.decode($.getQuery('e'))).show(); }
-    $(".container").waitForImages({
-        finished: function() {
-            $(".layer-load").hide();
-            setInterval(changeBG, 10000);
-        },
-        each: function(loaded, count, success) {
-            var total = Math.floor((loaded * 100) / count);
-
-        },
-        waitForAll: true
-    });
-    var indexback = 0;
-    function changeBG() {
-        indexback++;
-        var maxbg = $("#thebacks").find('img').length;
-        if (indexback > maxbg - 1) { indexback = 0; }
-        var nextUrl = 'url(' + $("#thebacks").find('img').eq(indexback).attr('src') + ')';
-        $("body").css('background-image', nextUrl);
-    }
-
-});
-</script>
+<script type="text/javascript"></script>
 
 </html>
